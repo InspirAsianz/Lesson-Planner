@@ -35,7 +35,6 @@ public class JPanelTest {
 		frame.pack();
 		frame.setVisible(true);
 		
-		
 	}
 	
 	private void panel2() {
