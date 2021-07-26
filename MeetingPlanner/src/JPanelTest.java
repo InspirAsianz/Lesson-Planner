@@ -22,8 +22,6 @@ public class JPanelTest {
             	panel2();
             }
           });
-		
-		// hello
 
 		
 		panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
