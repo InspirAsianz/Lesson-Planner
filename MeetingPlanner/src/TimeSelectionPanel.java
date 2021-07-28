@@ -7,7 +7,7 @@ import javax.swing.border.LineBorder;
 
 import java.util.*;
 
-public class TimeSelection extends JPanel {
+public class TimeSelectionPanel extends JPanel {
 	
 	private static Font bigfont = new Font("Serif", Font.PLAIN, 24);
 	private static String[] days = {"Monday", "Tuesday", "Wednesday", "Thursady", "Friday", "Saturday", "Sunday"};
@@ -15,7 +15,7 @@ public class TimeSelection extends JPanel {
 	private JPanel available;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	
-	public TimeSelection() {
+	public TimeSelectionPanel() {
 		
 //		try { 
 //		    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -100,7 +100,7 @@ public class TimeSelection extends JPanel {
 		JFrame frame = new JFrame();
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2 - w/2, dim.height/2 - h/2);
-		frame.add(new TimeSelection(), null);
+		frame.add(new TimeSelectionPanel(), null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Time Selection");
 		frame.pack();
