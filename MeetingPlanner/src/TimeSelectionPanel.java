@@ -10,7 +10,7 @@ import java.util.*;
 public class TimeSelectionPanel extends JPanel {
 	
 	private static Font bigfont = new Font("Serif", Font.PLAIN, 24);
-	private static String[] days = {"Monday", "Tuesday", "Wednesday", "Thursady", "Friday", "Saturday", "Sunday"};
+	private static String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
 	private JPanel available;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();

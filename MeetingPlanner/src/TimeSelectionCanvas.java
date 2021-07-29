@@ -11,7 +11,11 @@ import javax.swing.border.LineBorder;
 
 public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseMotionListener  {
 	
-	private static final Font bigFont = new Font("Serif", Font.PLAIN, 16);
+	private static final Font dayFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+	private static final Font timeFont = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+	private static String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+	private static String[] times = {"8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00",
+			"15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"};
 	
 	private int width;
 	private int height;
@@ -69,7 +73,11 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		}
 		
 		for (int i = 0; i < 840; i+=120) {
-			writeCentered(window2d, i+80+60, 70, "Monday", bigFont);
+			writeCentered(window2d, i+80+60, 70, days[i/120], dayFont);
+		}
+		
+		for (int i = 0; i <= 560; i+=40) {
+			writeRightAlign(window2d, 75, 80 + i + 4, times[i/40], timeFont);
 		}
 		
 		twoDGraph.drawImage(back, null, 0, 0);
@@ -80,6 +88,12 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		window2d.setFont(f);
     	int w = window2d.getFontMetrics().stringWidth(text);
     	window2d.drawString(text, x - w/2, y);
+	}
+	
+	private void writeRightAlign(Graphics2D window2d, int x, int y, String text, Font f) {
+		window2d.setFont(f);
+    	int w = window2d.getFontMetrics().stringWidth(text);
+    	window2d.drawString(text, x - w, y);
 	}
 
 	@Override
