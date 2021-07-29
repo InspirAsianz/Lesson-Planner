@@ -24,12 +24,19 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 	private boolean switchTo = true;
 	
 	private BufferedImage back;
+	
+	private SocketConnection socket;
 		
 	public TimeSelectionCanvas(int w, int h) {
 		width = w;
 		height = h;
 		
-		timeGrid = new boolean[28][7];		
+		timeGrid = new boolean[28][7];
+		
+		setLayout(null);
+		JButton sendButton = new JButton("Save My Preferences");
+		add(sendButton);
+		sendButton.setBounds(700, 655, 220, 25);
 	}
 	
 	@Override
@@ -113,7 +120,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		if (x < 0 || y < 0) return;
 		int gridx = (int)(x/120);
 		int gridy = (int)(y/20);
-		if (gridx < 0 || gridx >= timeGrid[0].length || gridy < 0 && gridy >= timeGrid.length) return;
+		if (gridx < 0 || gridx >= timeGrid[0].length || gridy < 0 || gridy >= timeGrid.length) return;
 		switchTo = !timeGrid[gridy][gridx];
 		timeGrid[gridy][gridx] = switchTo;
 		repaint();
@@ -149,7 +156,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		if (x < 0 || y < 0) return;
 		int gridx = (int)(x/120);
 		int gridy = (int)(y/20);
-		if (gridx < 0 || gridx >= timeGrid[0].length || gridy < 0 && gridy >= timeGrid.length) return;
+		if (gridx < 0 || gridx >= timeGrid[0].length || gridy < 0 || gridy >= timeGrid.length) return;
 		timeGrid[gridy][gridx] = switchTo;
 		repaint();
 	}
@@ -164,11 +171,11 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		int w = 1200;
 		int h = 800;
 		
-		try { 
-		    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
+//		try { 
+//		    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (Exception e) {
+//		    e.printStackTrace();
+//		}
 		
 		JFrame frame = new JFrame();
 		frame.setLayout(new GridBagLayout());
