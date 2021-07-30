@@ -26,17 +26,34 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 	private BufferedImage back;
 	
 	private SocketConnection socket;
+	
+	private int leftMargin;
+	private int rightMargin;
+	private int topMargin;
+	private int bottomMargin;
+	
+	private int boxXSize;
+	private int boxYSize;
 		
-	public TimeSelectionCanvas(int w, int h) {
+	public TimeSelectionCanvas(int w, int h, int left, int right, int top, int bot) {
 		width = w;
 		height = h;
+		leftMargin = left;
+		rightMargin = right;
+		topMargin = top;
+		bottomMargin = bot;
+		
+		boxXSize = (width - leftMargin - rightMargin) / 7;
+		boxYSize = (height - topMargin - bottomMargin) / 28;
 		
 		timeGrid = new boolean[28][7];
 		
 		setLayout(null);
 		JButton sendButton = new JButton("Save My Preferences");
 		add(sendButton);
-		sendButton.setBounds(700, 655, 220, 25);
+		int buttonWidth = 220;
+		int buttonHeight = 25;
+		sendButton.setBounds(width - rightMargin - buttonWidth, height - bottomMargin + buttonHeight/2, buttonWidth, buttonHeight);
 	}
 	
 	@Override
@@ -54,37 +71,40 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		for (int i = 0; i < timeGrid.length; i++) {
 			for (int j = 0; j < timeGrid[0].length; j++) {
 				if (timeGrid[i][j]) {
-					window2d.fillRect(80 + 120*j, 80 + 20*i, 120, 20);
+					window2d.fillRect(leftMargin + boxXSize*j, topMargin + boxYSize*i, boxXSize, boxYSize);
 				}
 				else {
 					window2d.setColor(Color.WHITE);
-					window2d.fillRect(80 + 120*j, 80 + 20*i, 120, 20);
+					window2d.fillRect(leftMargin + boxXSize*j, topMargin + boxYSize*i, boxXSize, boxYSize);
 					window2d.setColor(new Color(25, 160, 25));
 				}
 			}
 		}
 		
+		// Big Rectangle
 		window2d.setColor(Color.BLACK);
 		window2d.setStroke(new BasicStroke(4));
-		window2d.drawRect(80, 80, 840, 560);
+		window2d.drawRect(leftMargin, topMargin, width - leftMargin - rightMargin, height - topMargin - bottomMargin);
 		
+		// Vertical Lines
 		window2d.setStroke(new BasicStroke(2));
-		for (int i = 0; i < 840; i+=120) {
-			window2d.drawLine(80 + i, 80, 80 + i, 640);
+		for (int i = 0; i < 7 * boxXSize; i+=boxXSize) {
+			window2d.drawLine(leftMargin + i, rightMargin, leftMargin + i, height - bottomMargin);
 		}
 		
-		for (int i = 0; i < 560; i+=20) {
-			if ((i/20)%2 == 0) window2d.setStroke(new BasicStroke(2));
+		// Horizontal Lines
+		for (int i = 0; i < 28 * boxYSize; i+=boxYSize) {
+			if ((i/boxYSize)%2 == 0) window2d.setStroke(new BasicStroke(2));
 			else window2d.setStroke(new BasicStroke(1));
-			window2d.drawLine(80, 80 + i, 920, 80 + i);
+			window2d.drawLine(leftMargin, topMargin + i, width - rightMargin, topMargin + i);
 		}
 		
-		for (int i = 0; i < 840; i+=120) {
-			writeCentered(window2d, i+80+60, 70, days[i/120], dayFont);
+		for (int i = 0; i < boxXSize * 7; i += boxXSize) {
+			writeCentered(window2d, i + leftMargin + boxXSize/2, topMargin - 10, days[i/120], dayFont);
 		}
 		
-		for (int i = 0; i <= 560; i+=40) {
-			writeRightAlign(window2d, 75, 80 + i + 4, times[i/40], timeFont);
+		for (int i = 0; i <= boxYSize * 28; i += boxYSize * 2) {
+			writeRightAlign(window2d, leftMargin - 5, topMargin + i + 4, times[i/40], timeFont);
 		}
 		
 		twoDGraph.drawImage(back, null, 0, 0);
@@ -112,14 +132,14 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub		
-		int xmargin = 80 + 200 + 22; // Canvas Margin + Frame Margin + Some random number (idk man)
-		int ymargin = 80 + 100 + 40;
+		int xmargin = leftMargin + getX() + 8; // Canvas Margin + Position in Frame + random number
+		int ymargin = topMargin + getY() + 30;
 		
 		int x = e.getX() - xmargin;
 		int y = e.getY() - ymargin;
 		if (x < 0 || y < 0) return;
-		int gridx = (int)(x/120);
-		int gridy = (int)(y/20);
+		int gridx = (int)(x/boxXSize);
+		int gridy = (int)(y/boxYSize);
 		if (gridx < 0 || gridx >= timeGrid[0].length || gridy < 0 || gridy >= timeGrid.length) return;
 		switchTo = !timeGrid[gridy][gridx];
 		timeGrid[gridy][gridx] = switchTo;
@@ -148,14 +168,14 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int xmargin = 80 + 200 + 22; // Canvas Margin + Frame Margin + Some random number (idk man)
-		int ymargin = 80 + 100 + 40;
+		int xmargin = leftMargin + getX() + 8; // Canvas Margin + Position in Frame + random number
+		int ymargin = topMargin + getY() + 30;
 		
 		int x = e.getX() - xmargin;
 		int y = e.getY() - ymargin;
 		if (x < 0 || y < 0) return;
-		int gridx = (int)(x/120);
-		int gridy = (int)(y/20);
+		int gridx = (int)(x/boxXSize);
+		int gridy = (int)(y/boxYSize);
 		if (gridx < 0 || gridx >= timeGrid[0].length || gridy < 0 || gridy >= timeGrid.length) return;
 		timeGrid[gridy][gridx] = switchTo;
 		repaint();
@@ -207,7 +227,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		placeholder2.setBorder(new LineBorder(Color.RED));
 		frame.add(placeholder2, gbc);
 		
-		TimeSelectionCanvas tsc = new TimeSelectionCanvas(1000, 700);
+		TimeSelectionCanvas tsc = new TimeSelectionCanvas(1000, 700, 80, 80, 80, 60);
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 2;
