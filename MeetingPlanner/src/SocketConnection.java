@@ -26,7 +26,7 @@ public class SocketConnection {
 	        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 	        System.out.println("[CLIENT] Connected to server");
     	} catch (IOException e) {
-    		e.printStackTrace();
+    		// e.printStackTrace();
     		System.out.println("[CLIENT] Unable to connect to server");
     	}
     }
