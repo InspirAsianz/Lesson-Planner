@@ -18,8 +18,6 @@ public class LoginWindow implements Runnable {
 
 	@Override
 	public void run() {
-		SocketConnection socket = new SocketConnection();
-
 		JFrame frame = new JFrame();
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width / 2 - WIDTH / 2, dim.height / 2 - HEIGHT / 2);
@@ -42,8 +40,8 @@ public class LoginWindow implements Runnable {
 		JButton loginButton = new JButton("Log in");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				socket.sendMessage("LOGINCHECK " + userInput.getText() + " " + passInput.getText());
-				String res = socket.receiveMessage();
+				StartProgram.socket.sendMessage("LOGINCHECK " + userInput.getText() + " " + passInput.getText());
+				String res = StartProgram.socket.receiveMessage();
 				if (res.contentEquals("SUCCESS")) {
 					successLabel.setText("Login Successful");
 				} else {
