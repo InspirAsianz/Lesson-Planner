@@ -94,8 +94,8 @@ public class LoginWindow implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Log in");
 		frame.pack();
-		frame.setVisible(true);
 		frame.setSize(WIDTH, HEIGHT);
+		frame.setVisible(true);
 
 	}
 
