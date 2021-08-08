@@ -59,7 +59,7 @@ public class Register implements Runnable {
 		registerButton.setFont(Courier16);
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StartProgram.socket.sendMessage("REGISTER " + userInput.getText() +":"+ passInput.getText()+":"+nameInput.getText()+":"+groupInput.getText());
+				StartProgram.socket.sendMessage("REGISTER " + userInput.getText() +":"+ passInput.getText()+":STUDENT:"+nameInput.getText()+":"+groupInput.getText());
 				String res = StartProgram.socket.receiveMessage();
 				if (res.contentEquals("SUCCESS")) {
 					registerLabel.setText("Registration successful.");
@@ -102,7 +102,7 @@ public class Register implements Runnable {
 		registerButton.setBounds(125, 180, 150, 30);
 		
 		panel.add(registerLabel);
-		registerLabel.setBounds(125,180,150,30);
+		registerLabel.setBounds(125,225,150,30);
 		
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
