@@ -52,6 +52,10 @@ public class Register implements Runnable{
 		groupLabel.setFont(Courier16);
 
 		JTextField groupInput = new JTextField(24);
+		
+		JButton registerButton = new JButton("Register");
+		registerButton.setFont(Courier16);
+		
 		panel.setLayout(null);
 		panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
@@ -76,8 +80,8 @@ public class Register implements Runnable{
 		panel.add(groupInput);
 		groupInput.setBounds(130, 135, 200, 25);
 		
-		
-		
+		panel.add(registerButton);
+		registerButton.setBounds(170,180,60,20);
 		
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
