@@ -45,7 +45,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		
 		boxXSize = (width - leftMargin - rightMargin) / 7;
 		boxYSize = (height - topMargin - bottomMargin) / 28;
-		
+				
 		timeGrid = new boolean[28][7];
 		
 		setLayout(null);
@@ -89,7 +89,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		// Vertical Lines
 		window2d.setStroke(new BasicStroke(2));
 		for (int i = 0; i < 7 * boxXSize; i+=boxXSize) {
-			window2d.drawLine(leftMargin + i, rightMargin, leftMargin + i, height - bottomMargin);
+			window2d.drawLine(leftMargin + i, topMargin, leftMargin + i, height - bottomMargin);
 		}
 		
 		// Horizontal Lines
@@ -100,11 +100,11 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		}
 		
 		for (int i = 0; i < boxXSize * 7; i += boxXSize) {
-			writeCentered(window2d, i + leftMargin + boxXSize/2, topMargin - 10, days[i/120], dayFont);
+			writeCentered(window2d, i + leftMargin + boxXSize/2, topMargin - 10, days[i/boxXSize], dayFont);
 		}
 		
-		for (int i = 0; i <= boxYSize * 28; i += boxYSize * 2) {
-			writeRightAlign(window2d, leftMargin - 5, topMargin + i + 4, times[i/40], timeFont);
+		for (int i = 0; i < boxYSize * 28; i += boxYSize * 2) {
+			writeRightAlign(window2d, leftMargin - 5, topMargin + i + 4, times[i/(boxYSize * 2)], timeFont);
 		}
 		
 		twoDGraph.drawImage(back, null, 0, 0);

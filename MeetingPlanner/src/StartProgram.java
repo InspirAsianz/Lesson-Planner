@@ -6,7 +6,7 @@ public class StartProgram implements Runnable {
 	public static SocketConnection socket;
 	
     public void run() {
-        SwingUtilities.invokeLater(new LoginWindow());
+        SwingUtilities.invokeLater(new MainWindow());
     }
     
     public static void main(String[] args) {
