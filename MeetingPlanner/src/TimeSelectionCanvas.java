@@ -55,8 +55,55 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 				Point pos = TimeSelectionCanvas.this.getLocationOnScreen();
 				Thread t = new Thread(new Toast("Preferences Saved!", 
 						(int)(pos.getX() + w/2), (int)(pos.getY() + 0), 0.5));
-				t.setDaemon(true);
 				t.start();
+				
+				int hour = 8;
+				String minute = "00";
+				int curHourStart = 8;
+				String curMinuteStart = "00";
+				boolean onStreak = false;
+				String message = "";
+				
+				for (int i = 0; i < 7; i++) {
+					message += days[i].substring(0, 3).toUpperCase() + ":";
+					for (int j = 0; j < 28; j++) {
+						boolean time = timeGrid[j][i];
+//						System.out.println(time);
+						if (time) {
+							if (!onStreak) {
+								curHourStart = hour;
+								curMinuteStart = minute;
+								onStreak = true;
+							}
+						} else {
+							if (onStreak) {
+								onStreak = false;
+								message += curHourStart + curMinuteStart + "-" + hour + minute + ",";
+							}
+						}
+						
+						if (minute.contentEquals("00")) {
+							minute = "30";
+						} else {
+							minute = "00";
+							hour++;
+						}
+					}
+					
+					if (onStreak)
+						message += curHourStart + curMinuteStart + "-" + hour + minute + ",";
+					
+					if (message.charAt(message.length()-1) == ',') message = message.substring(0, message.length()-1);
+					message += ";";
+					
+					hour = 8;
+					minute = "00";
+					curHourStart = 8;
+					curMinuteStart = "00";
+					onStreak = false;
+				}
+				
+				StartProgram.socket.sendMessage("TIMEUPDATE " + StartProgram.username + " " + message);
 			}
 		});
 		

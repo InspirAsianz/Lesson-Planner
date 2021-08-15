@@ -28,8 +28,11 @@ public class MainWindow implements Runnable {
 		tsc.setBounds(200, 0, 1000, 800);
 		tsc.setBorder(new LineBorder(Color.RED));
 		
+		
 		frame.setLocation(dim.width/2 - w/2, dim.height/2 - h/2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addMouseListener(tsc);
+		frame.addMouseMotionListener(tsc);
 		frame.setTitle("Lesson Planner");
 		frame.pack();
 		frame.setSize(w, h);

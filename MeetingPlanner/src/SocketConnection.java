@@ -38,8 +38,7 @@ public class SocketConnection {
     	for (int i = 0; i < HEADER_LENGTH - Integer.toString(length).length(); i++) {
     		header = "0" + header;
     	}
-    	out.println(header);
-        out.println(msg);
+    	out.println(header + msg);
     }
     
     public String receiveMessage() {

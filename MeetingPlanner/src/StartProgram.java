@@ -8,7 +8,7 @@ public class StartProgram implements Runnable {
 	public static String usertype = "STUDENT";
 	
     public void run() {
-        SwingUtilities.invokeLater(new MainWindow());
+        SwingUtilities.invokeLater(new LoginWindow());
     }
     
     public static void main(String[] args) {
