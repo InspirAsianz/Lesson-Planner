@@ -35,7 +35,7 @@ public class SocketConnection {
     	System.out.println("[CLIENT] Sending Message: " + msg);
     	int length = msg.getBytes(UTF8).length;
     	String header = Integer.toString(length);
-    	for (int i = 0; i < HEADER_LENGTH - header.length(); i++) {
+    	for (int i = 0; i < HEADER_LENGTH - Integer.toString(length).length(); i++) {
     		header = "0" + header;
     	}
     	out.println(header);
@@ -65,6 +65,7 @@ public class SocketConnection {
 
     public void stopConnection() {
         try {
+        	sendMessage("QUIT");
 			in.close();
 	        out.close();
 	        clientSocket.close();
