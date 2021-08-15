@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -53,13 +54,24 @@ public class Register implements Runnable {
 
 		JTextField groupInput = new JTextField(24);
 		
+		JLabel userTypeLabel = new JLabel("I am a ");
+		userTypeLabel.setFont(Courier16);
+		
+		String[] selections = {"Student", "Teacher"};
+		JComboBox userTypeInput = new JComboBox<String>(selections);
+		
 		JLabel registerLabel = new JLabel();
 
 		JButton registerButton = new JButton("Register");
 		registerButton.setFont(Courier16);
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StartProgram.socket.sendMessage("REGISTER " + userInput.getText() +":"+ passInput.getText()+":STUDENT:"+nameInput.getText()+":"+groupInput.getText());
+				String message = "REGISTER " + userInput.getText() + ":"+ passInput.getText() 
+					+ ":" + userTypeInput.getSelectedItem().toString().toUpperCase() + ":" + nameInput.getText() + ":" + groupInput.getText();
+				
+				System.out.println(message);
+				
+				StartProgram.socket.sendMessage(message);
 				String res = StartProgram.socket.receiveMessage();
 				if (res.contentEquals("SUCCESS")) {
 					registerLabel.setText("Registration successful.");
@@ -97,12 +109,17 @@ public class Register implements Runnable {
 		groupLabel.setBounds(10, 135, 150, 25);
 		panel.add(groupInput);
 		groupInput.setBounds(130, 135, 200, 25);
+		
+		panel.add(userTypeLabel);
+		userTypeLabel.setBounds(10, 175, 150, 25);
+		panel.add(userTypeInput);
+		userTypeInput.setBounds(130, 175, 200, 25);
 
 		panel.add(registerButton);
-		registerButton.setBounds(125, 180, 150, 30);
+		registerButton.setBounds(125, 215, 150, 30);
 		
 		panel.add(registerLabel);
-		registerLabel.setBounds(125,225,150,30);
+		registerLabel.setBounds(125, 265, 150, 30);
 		
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

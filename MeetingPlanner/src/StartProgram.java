@@ -4,6 +4,8 @@ import javax.swing.*;
 public class StartProgram implements Runnable {
 	
 	public static SocketConnection socket;
+	public static String username;
+	public static String usertype = "STUDENT";
 	
     public void run() {
         SwingUtilities.invokeLater(new MainWindow());

@@ -44,6 +44,7 @@ public class LoginWindow implements Runnable {
 				String res = StartProgram.socket.receiveMessage();
 				if (res.contentEquals("SUCCESS")) {
 					successLabel.setText("Login Successful");
+					StartProgram.username = userInput.getText();
 					frame.dispose();
 					SwingUtilities.invokeLater(new MainWindow());
 				} else {
