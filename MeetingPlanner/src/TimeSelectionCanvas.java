@@ -1,5 +1,7 @@
 import java.util.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -24,9 +26,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 	private boolean switchTo = true;
 	
 	private BufferedImage back;
-	
-	private SocketConnection socket;
-	
+		
 	private int leftMargin;
 	private int rightMargin;
 	private int topMargin;
@@ -50,6 +50,17 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		
 		setLayout(null);
 		JButton sendButton = new JButton("Save My Preferences");
+		sendButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Point pos = TimeSelectionCanvas.this.getLocationOnScreen();
+				Thread t = new Thread(new Toast("Preferences Saved!", 
+						(int)(pos.getX() + w/2), (int)(pos.getY() + 0), 0.5));
+				t.setDaemon(true);
+				t.start();
+			}
+		});
+		
+		
 		add(sendButton);
 		int buttonWidth = 220;
 		int buttonHeight = 25;
