@@ -47,16 +47,36 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 		boxYSize = (height - topMargin - bottomMargin) / 28;
 				
 		timeGrid = new boolean[28][7];
+
+		StartProgram.socket.sendMessage("GETTIME " + StartProgram.username);
+		String allTimes = StartProgram.socket.receiveMessage();
+		int start, end, startIndex, endIndex;
+		String[] startEnd, times;
+		if (!allTimes.contentEquals("None")) {
+			String[] days = allTimes.split(";");
+			for (int i = 0; i < 7; i++) {
+				times = days[i].substring(4).split(",");
+				for (String time : times) {
+					if (!time.equals("")) {
+						startEnd = time.split("-");
+						start = Integer.parseInt(startEnd[0]) % 10000;
+						end = Integer.parseInt(startEnd[1]) % 10000;
+						startIndex = start/100 * 2 + (start%100)/30 - 16;
+						endIndex = end/100 * 2 + (end%100)/30 - 16;
+						
+						for (int j = startIndex; j < endIndex; j++) {
+							timeGrid[j][i] = true;
+						}
+					}
+				}
+			}
+		} 
+		
 		
 		setLayout(null);
 		JButton sendButton = new JButton("Save My Preferences");
 		sendButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Point pos = TimeSelectionCanvas.this.getLocationOnScreen();
-				Thread t = new Thread(new Toast("Preferences Saved!", 
-						(int)(pos.getX() + w/2), (int)(pos.getY() + 0), 0.5));
-				t.start();
-				
+			public void actionPerformed(ActionEvent e) {				
 				int hour = 8;
 				String minute = "00";
 				int curHourStart = 8;
@@ -68,7 +88,6 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 					message += days[i].substring(0, 3).toUpperCase() + ":";
 					for (int j = 0; j < 28; j++) {
 						boolean time = timeGrid[j][i];
-//						System.out.println(time);
 						if (time) {
 							if (!onStreak) {
 								curHourStart = hour;
@@ -105,6 +124,18 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 				
 				StartProgram.socket.sendMessage("TIMEUPDATE " + StartProgram.username + " " + message);
 				String result = StartProgram.socket.receiveMessage();
+				if (result.contentEquals("SUCCESS")) {
+					Point pos = TimeSelectionCanvas.this.getLocationOnScreen();
+					Thread t = new Thread(new Toast("Preferences Saved!", 
+							(int)(pos.getX() + w/2), (int)(pos.getY() + 0), 0.5));
+					t.start();
+				}
+				else {
+					Point pos = TimeSelectionCanvas.this.getLocationOnScreen();
+					Thread t = new Thread(new Toast("An error occured!", 
+							(int)(pos.getX() + w/2), (int)(pos.getY() + 0), 0.5));
+					t.start();
+				}
 			}
 		});
 		
