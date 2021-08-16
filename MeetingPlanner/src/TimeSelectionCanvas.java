@@ -104,6 +104,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 				}
 				
 				StartProgram.socket.sendMessage("TIMEUPDATE " + StartProgram.username + " " + message);
+				String result = StartProgram.socket.receiveMessage();
 			}
 		});
 		
