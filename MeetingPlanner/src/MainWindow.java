@@ -39,4 +39,8 @@ public class MainWindow implements Runnable {
 		frame.setVisible(true);
 		frame.setResizable(true);
 	}
+	
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new MainWindow());
+	}
 }
