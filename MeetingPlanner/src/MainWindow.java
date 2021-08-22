@@ -21,12 +21,23 @@ public class MainWindow implements Runnable {
 		panel.setBorder(new LineBorder(Color.BLUE));
 		
 		TimeSelectionCanvas tsc = new TimeSelectionCanvas(1000, 800, 80, 80, 90, 94);
-		
-		
-		
 		panel.add(tsc);
 		tsc.setBounds(200, 0, 1000, 800);
 		tsc.setBorder(new LineBorder(Color.RED));
+		
+		JPanel settingsPanel = new JPanel();
+		settingsPanel.setBorder(null);
+		settingsPanel.setLayout(null);
+		panel.add(settingsPanel);
+		settingsPanel.setBounds(0, 0, 200, 100);
+		settingsPanel.setBorder(new LineBorder(Color.GREEN));
+		
+		JPanel addGroupPanel = new JPanel();
+		addGroupPanel.setBorder(null);
+		addGroupPanel.setLayout(null);
+		panel.add(addGroupPanel);
+		addGroupPanel.setBounds(0, 100, 200, 100);
+		addGroupPanel.setBorder(new LineBorder(Color.YELLOW));
 		
 		
 		frame.setLocation(dim.width/2 - w/2, dim.height/2 - h/2);

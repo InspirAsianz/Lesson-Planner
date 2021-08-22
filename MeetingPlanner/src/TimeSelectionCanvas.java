@@ -48,29 +48,31 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 				
 		timeGrid = new boolean[28][7];
 
-		StartProgram.socket.sendMessage("GETTIME " + StartProgram.username);
-		String allTimes = StartProgram.socket.receiveMessage();
-		int start, end, startIndex, endIndex;
-		String[] startEnd, times;
-		if (!allTimes.contentEquals("None")) {
-			String[] days = allTimes.split(";");
-			for (int i = 0; i < 7; i++) {
-				times = days[i].substring(4).split(",");
-				for (String time : times) {
-					if (!time.equals("")) {
-						startEnd = time.split("-");
-						start = Integer.parseInt(startEnd[0]) % 10000;
-						end = Integer.parseInt(startEnd[1]) % 10000;
-						startIndex = start/100 * 2 + (start%100)/30 - 16;
-						endIndex = end/100 * 2 + (end%100)/30 - 16;
-						
-						for (int j = startIndex; j < endIndex; j++) {
-							timeGrid[j][i] = true;
+		if (!StartProgram.username.contentEquals("no user")) {
+			StartProgram.socket.sendMessage("GETTIME " + StartProgram.username);
+			String allTimes = StartProgram.socket.receiveMessage();
+			int start, end, startIndex, endIndex;
+			String[] startEnd, times;
+			if (!allTimes.contentEquals("None")) {
+				String[] days = allTimes.split(";");
+				for (int i = 0; i < 7; i++) {
+					times = days[i].substring(4).split(",");
+					for (String time : times) {
+						if (!time.equals("")) {
+							startEnd = time.split("-");
+							start = Integer.parseInt(startEnd[0]) % 10000;
+							end = Integer.parseInt(startEnd[1]) % 10000;
+							startIndex = start/100 * 2 + (start%100)/30 - 16;
+							endIndex = end/100 * 2 + (end%100)/30 - 16;
+							
+							for (int j = startIndex; j < endIndex; j++) {
+								timeGrid[j][i] = true;
+							}
 						}
 					}
 				}
 			}
-		} 
+		}
 		
 		
 		setLayout(null);

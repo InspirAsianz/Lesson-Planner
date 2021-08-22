@@ -4,7 +4,7 @@ import javax.swing.*;
 public class StartProgram implements Runnable {
 	
 	public static SocketConnection socket;
-	public static String username;
+	public static String username = "no user";
 	public static String usertype = "STUDENT";
 	
     public void run() {
