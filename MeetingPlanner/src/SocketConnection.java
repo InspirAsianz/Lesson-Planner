@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 
 public class SocketConnection {
 	
-	private static final String HOST = "localhost";
+	private static final String HOST = "45.79.81.143";
 	private static final int PORT = 23512;
 	
 	private static final Charset UTF8 = Charset.forName("UTF-8");
