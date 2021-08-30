@@ -2,12 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class AdminWindow implements Runnable {
 	
 	private static Font Courier16 = new Font("Courier", Font.PLAIN, 16);
+	
+	private int prevMax = 0;
 
 	@Override
 	public void run() {
@@ -32,6 +36,14 @@ public class AdminWindow implements Runnable {
 		consoleOutput.setFont(Courier16);
 		consoleOutput.setBorder(BorderFactory.createEmptyBorder(7,2,7,2));
 		JScrollPane scroll = new JScrollPane(consoleOutput);
+		scroll.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  
+		    public void adjustmentValueChanged(AdjustmentEvent e) {
+		    	if(e.getAdjustable().getMaximum() != prevMax) {
+		    		prevMax = e.getAdjustable().getMaximum();
+		    		e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+		    	}
+		    }
+		});
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
