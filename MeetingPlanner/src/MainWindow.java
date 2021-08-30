@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainWindow implements Runnable {
 
@@ -35,9 +37,28 @@ public class MainWindow implements Runnable {
 		JPanel addGroupPanel = new JPanel();
 		addGroupPanel.setBorder(null);
 		addGroupPanel.setLayout(null);
+		JLabel addGroupLabel = new JLabel();
+		JTextField addGroupText = new JTextField();
+		JButton addGroupButton = new JButton();
+		addGroupPanel.add(addGroupLabel);
+		addGroupLabel.add(addGroupText);
+		addGroupPanel.add(addGroupButton);
+		addGroupLabel.setText("Add a Group");
+		addGroupLabel.setBounds(20, 0, 180, 80);
+		addGroupText.setBounds(0, 50, 120,20);
+		addGroupButton.setBounds(20, 70, 100, 30);
+		addGroupButton.setText("Add");
+		addGroupButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StartProgram.socket.sendMessage("JOINGROUP" + StartProgram.username+ "" + addGroupText.getText());
+			}
+			});
+		addGroupLabel.setVisible(true);
+		addGroupText.setVisible(true);
 		panel.add(addGroupPanel);
-		addGroupPanel.setBounds(0, 100, 200, 100);
+		addGroupPanel.setBounds(0, 80, 200, 120);
 		addGroupPanel.setBorder(new LineBorder(Color.YELLOW));
+		
 		
 		
 		frame.setLocation(dim.width/2 - w/2, dim.height/2 - h/2);
