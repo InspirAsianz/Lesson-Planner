@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class Register implements Runnable {
 
 	private static final int WIDTH = 400;
-	private static final int HEIGHT = 300;
+	private static final int HEIGHT = 325;
 
 	private static Font Courier16 = new Font("Courier", Font.PLAIN, 16);
 
@@ -26,7 +26,7 @@ public class Register implements Runnable {
 		JFrame frame = new JFrame();
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width / 2 - WIDTH / 2, dim.height / 2 - HEIGHT / 2);
-		// frame.setSize(200, 200);
+		 frame.setSize(WIDTH, HEIGHT);
 
 		JPanel panel = new JPanel();
 
@@ -119,7 +119,7 @@ public class Register implements Runnable {
 		registerButton.setBounds(125, 215, 150, 30);
 		
 		panel.add(registerLabel);
-		registerLabel.setBounds(125, 265, 150, 30);
+		registerLabel.setBounds(100, 255, 200, 30);
 		
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

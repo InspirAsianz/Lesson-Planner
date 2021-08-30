@@ -52,7 +52,14 @@ public class AdminWindow implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String command = consoleInput.getText().substring(0, Math.min(consoleInput.getText().length(), 64));
-				String commandResult = "'" + command + "' is not a valid command";
+				String commandResult = "";
+				if (StartProgram.socket != null) {
+					StartProgram.socket.sendMessage("CONSOLE " + command + " " + StartProgram.username + " " + StartProgram.groupcode);
+					commandResult = StartProgram.socket.receiveMessage();
+				}
+				else {
+					commandResult = "Disconnected from Server";
+				}
 				String outputText = consoleOutput.getText().substring(0, consoleOutput.getText().length() - 7) + 
 						" " + command + "<br>" + commandResult + "<br><br>Admin Console></html>";
 				consoleOutput.setText(outputText);

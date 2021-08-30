@@ -48,7 +48,7 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 				
 		timeGrid = new boolean[28][7];
 
-		if (!StartProgram.username.contentEquals("no user")) {
+		if (StartProgram.socket != null) {
 			StartProgram.socket.sendMessage("GETTIME " + StartProgram.username);
 			String allTimes = StartProgram.socket.receiveMessage();
 			int start, end, startIndex, endIndex;
