@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 public class MainWindow implements Runnable {
 
+	private static Font textFont = new Font("Courier", Font.PLAIN, 16);
+	private static Font Courier12 = new Font("Courier", Font.PLAIN, 12);
+	
 	@Override
 	public void run() {
 		int w = 1200;
@@ -37,29 +40,53 @@ public class MainWindow implements Runnable {
 		JPanel addGroupPanel = new JPanel();
 		addGroupPanel.setBorder(null);
 		addGroupPanel.setLayout(null);
+		
 		JLabel addGroupLabel = new JLabel();
-		JTextField addGroupText = new JTextField();
-		JButton addGroupButton = new JButton();
-		addGroupPanel.add(addGroupLabel);
-		addGroupLabel.add(addGroupText);
-		addGroupPanel.add(addGroupButton);
 		addGroupLabel.setText("Add a Group");
-		addGroupLabel.setBounds(20, 0, 180, 80);
-		addGroupText.setBounds(0, 50, 120,20);
-		addGroupButton.setBounds(20, 70, 100, 30);
+		addGroupLabel.setFont(textFont);
+
+		JTextField addGroupText = new JTextField();
+		addGroupText.setFont(textFont);
+		
+		JButton addGroupButton = new JButton();
 		addGroupButton.setText("Add");
+		addGroupButton.setFont(textFont);
 		addGroupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StartProgram.socket.sendMessage("JOINGROUP" + StartProgram.username+ "" + addGroupText.getText());
 			}
-			});
-		addGroupLabel.setVisible(true);
-		addGroupText.setVisible(true);
+		});
+
+		addGroupPanel.add(addGroupLabel);
+		addGroupLabel.add(addGroupText);
+		addGroupPanel.add(addGroupButton);
+		addGroupLabel.setBounds(20, 0, 180, 80);
+		addGroupText.setBounds(0, 50, 120, 30);
+		addGroupButton.setBounds(20, 80, 100, 30);
+		
 		panel.add(addGroupPanel);
 		addGroupPanel.setBounds(0, 80, 200, 120);
 		addGroupPanel.setBorder(new LineBorder(Color.YELLOW));
 		
+		JPanel classesPanel = new JPanel();
+		classesPanel.setBorder(null);
+		classesPanel.setLayout(null);
 		
+		JLabel addClassLabel = new JLabel("Add a Class");
+		addClassLabel.setFont(textFont);
+		
+		String[] selections = {"No classes found"};
+		JComboBox<String> addClassSelection = new JComboBox<String>(selections);
+		addClassSelection.setFont(Courier12);
+		
+		classesPanel.add(addClassLabel);
+		addClassLabel.setBounds(20, 0, 180, 40);
+		classesPanel.add(addClassSelection);
+		addClassSelection.setBounds(20, 40, 160, 20);
+		
+		panel.add(classesPanel);
+		classesPanel.setBounds(0, 200, 200, 600);
+		classesPanel.setBorder(new LineBorder(Color.PINK));
 		
 		frame.setLocation(dim.width/2 - w/2, dim.height/2 - h/2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
