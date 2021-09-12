@@ -15,7 +15,7 @@ public class StartProgram implements Runnable {
     public static void main(String[] args) {
     	socket = new SocketConnection();
     	Runtime.getRuntime().addShutdownHook(new Shutdown());
-        SwingUtilities.invokeLater(new AdminWindow());
+        SwingUtilities.invokeLater(new LoginWindow());
     }
     
 	private static class Shutdown extends Thread {
