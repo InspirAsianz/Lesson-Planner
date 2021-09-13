@@ -70,17 +70,38 @@ public class MainWindow implements Runnable {
 		
 		JPanel classesPanel = new JPanel();
 		classesPanel.setBorder(null);
-		classesPanel.setLayout(new FlowLayout());
-		
+		classesPanel.setLayout(null);
 		JLabel addClassLabel = new JLabel("Add a Class");
 		addClassLabel.setFont(textFont);
 		
 		String[] addSelections = {"No classes found"};
-//		StartProgram.socket.sendMessage("GETCLASSES " + StartProgram.username + " " + StartProgram);
+		if (StartProgram.socket != null) {
+			StartProgram.socket.sendMessage("GETADDCLASSES " + StartProgram.username + " " + StartProgram.groupcode);
+			addSelections = StartProgram.socket.receiveMessage().split(":");
+		}
 		JComboBox<String> addClassSelection = new JComboBox<String>(addSelections);
 		addClassSelection.setFont(Courier12);
 		
-		String[] currentClasses = {"monkey class", "monkeyobro class"};
+		JButton addClassButton = new JButton();
+		addClassButton.setText("Add");
+		addClassButton.setFont(Courier12);
+		addClassButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				StartProgram.socket.sendMessage("CONSOLE ADD " + StartProgram.username + " TO " + 
+//						addClassSelection.getSelectedItem());
+			}
+		});
+		
+		String[] currentClasses = {"No classes found"};
+		if (StartProgram.socket != null) {
+			StartProgram.socket.sendMessage("GETCURCLASSES " + StartProgram.username + " " + StartProgram.groupcode);
+			currentClasses = StartProgram.socket.receiveMessage().split(":");
+		}
+
+		JLabel currentClassesLabel = new JLabel("Current Classes:");
+		currentClassesLabel.setFont(textFont);
+		
 		JLabel curClassesLabel = new JLabel();
 		curClassesLabel.setFont(Courier12);
 		StringBuilder classes = new StringBuilder("");
@@ -88,24 +109,37 @@ public class MainWindow implements Runnable {
 			classes.append(c);
 			classes.append("<br>");
 		}
-		curClassesLabel.setText("<html>Current Classes:<br>" + classes + "</html>");
+		curClassesLabel.setText("<html>" + classes + "</html>");
+		curClassesLabel.setVerticalAlignment(JLabel.TOP);
 		
 		JLabel removeClassLabel = new JLabel("Remove a Class");
 		removeClassLabel.setFont(textFont);
 		
 		String[] removeSelections = currentClasses;
-//		StartProgram.socket.sendMessage("GETCLASSES " + StartProgram.username + " " + StartProgram);
 		JComboBox<String> removeClassSelection = new JComboBox<String>(removeSelections);
 		removeClassSelection.setFont(Courier12);
-
 		
+		JButton removeClassButton = new JButton();
+		removeClassButton.setText("Remove");
+		removeClassButton.setFont(Courier12);
+
+
 		classesPanel.add(addClassLabel);
-//		addClassLabel.setBounds(20, 0, 180, 40);
+		addClassLabel.setBounds(20, 10, 180, 30);
 		classesPanel.add(addClassSelection);
-//		addClassSelection.setBounds(20, 40, 160, 20);
+		addClassSelection.setBounds(20, 35, 160, 20);
+		classesPanel.add(addClassButton);
+		addClassButton.setBounds(20, 56, 80, 20);
+		classesPanel.add(currentClassesLabel);
+		currentClassesLabel.setBounds(20, 80, 160, 30);
 		classesPanel.add(curClassesLabel);
+		curClassesLabel.setBounds(20, 100, 160, 300);
 		classesPanel.add(removeClassLabel);
+		removeClassLabel.setBounds(20, 410, 160, 30);
 		classesPanel.add(removeClassSelection);
+		removeClassSelection.setBounds(20, 435, 160, 20);
+		classesPanel.add(removeClassButton);
+		removeClassButton.setBounds(20, 456, 80, 20);
 		
 		panel.add(classesPanel);
 		classesPanel.setBounds(0, 200, 200, 600);
