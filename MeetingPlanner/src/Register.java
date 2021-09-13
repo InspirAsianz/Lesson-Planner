@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class Register implements Runnable {
 
@@ -58,9 +59,19 @@ public class Register implements Runnable {
 		userTypeLabel.setFont(Courier16);
 		
 		String[] selections = {"Student", "Teacher"};
-		JComboBox userTypeInput = new JComboBox<String>(selections);
+		JComboBox<String> userTypeInput = new JComboBox<String>(selections);
 		
 		JLabel registerLabel = new JLabel();
+		
+		JButton backButton = new JButton();
+		backButton.setText("Back");
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				SwingUtilities.invokeLater(new LoginWindow());
+			}
+		});
 
 		JButton registerButton = new JButton("Register");
 		registerButton.setFont(Courier16);
@@ -116,10 +127,13 @@ public class Register implements Runnable {
 		userTypeInput.setBounds(130, 175, 200, 25);
 
 		panel.add(registerButton);
-		registerButton.setBounds(125, 215, 150, 30);
+		registerButton.setBounds(130, 215, 150, 30);
 		
 		panel.add(registerLabel);
-		registerLabel.setBounds(100, 255, 200, 30);
+		registerLabel.setBounds(150, 255, 200, 30);
+		
+		panel.add(backButton);
+		backButton.setBounds(10, 250, 75, 30);
 		
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
