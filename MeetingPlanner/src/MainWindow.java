@@ -35,9 +35,31 @@ public class MainWindow implements Runnable {
 		JPanel settingsPanel = new JPanel();
 		settingsPanel.setBorder(null);
 		settingsPanel.setLayout(null);
+		
+		JLabel usernameLabel = new JLabel();
+		usernameLabel.setText("Username: " + StartProgram.username);
+		JButton settingsButton = new JButton();
+		JButton logOutButton = new JButton();
+		settingsButton.setText("Settings");
+		logOutButton.setText("Log Out");
+		settingsPanel.add(usernameLabel);
+		settingsPanel.add(settingsButton);
+		settingsPanel.add(logOutButton);
+		usernameLabel.setBounds(0,0,400,20);
+		settingsButton.setBounds(0,20,90,20);
+		logOutButton.setBounds(100,20,90,20);
+		logOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				SwingUtilities.invokeLater(new LoginWindow());
+			}
+		});
+		
 		panel.add(settingsPanel);
 		settingsPanel.setBounds(0, 0, 200, 100);
 		settingsPanel.setBorder(new LineBorder(Color.GREEN));
+		
+		
 		
 		JPanel addGroupPanel = new JPanel();
 		addGroupPanel.setBorder(null);
