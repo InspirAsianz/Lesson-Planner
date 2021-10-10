@@ -129,13 +129,13 @@ public class TimeSelectionCanvas extends JPanel implements MouseListener, MouseM
 				if (result.contentEquals("SUCCESS")) {
 					Point pos = TimeSelectionCanvas.this.getLocationOnScreen();
 					Thread t = new Thread(new Toast("Preferences Saved!", 
-							(int)(pos.getX() + w/2), (int)(pos.getY() + 0), 0.5));
+							(int)(pos.getX() + w/2), (int)(pos.getY() + 700), 0.5));
 					t.start();
 				}
 				else {
 					Point pos = TimeSelectionCanvas.this.getLocationOnScreen();
 					Thread t = new Thread(new Toast("An error occured!", 
-							(int)(pos.getX() + w/2), (int)(pos.getY() + 0), 0.5));
+							(int)(pos.getX() + w/2), (int)(pos.getY() + 700), 0.5));
 					t.start();
 				}
 			}

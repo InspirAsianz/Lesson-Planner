@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 
 public class SocketConnection {
 	
-	private static final String HOST = "localhost"; //"45.79.81.143";
+	private static final String HOST = "localhost";// "45.79.81.143";
 	private static final int PORT = 23512;
 	
 	private static final Charset UTF8 = Charset.forName("UTF-8");
@@ -22,6 +22,7 @@ public class SocketConnection {
     public void startConnection(String ip, int port) {
     	try {
 	        clientSocket = new Socket(ip, port);
+	        clientSocket.setSoTimeout(5000);
 	        out = new PrintWriter(clientSocket.getOutputStream(), true);
 	        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 	        System.out.println("[CLIENT] Connected to server");
@@ -58,6 +59,7 @@ public class SocketConnection {
 			return data.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
+			new StartProgram.FatalError().start();
 		}
         return "";
     }

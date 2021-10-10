@@ -25,29 +25,31 @@ public class MainWindow implements Runnable {
 		panel.setLayout(null);
 		frame.add(panel);
 		panel.setBounds(0, 0, w, h);
-		panel.setBorder(new LineBorder(Color.BLUE));
+//		panel.setBorder(new LineBorder(Color.BLUE));
 		
 		TimeSelectionCanvas tsc = new TimeSelectionCanvas(1000, 800, 80, 80, 90, 94);
 		panel.add(tsc);
 		tsc.setBounds(200, 0, 1000, 800);
-		tsc.setBorder(new LineBorder(Color.RED));
+//		tsc.setBorder(new LineBorder(Color.RED));
 		
 		JPanel settingsPanel = new JPanel();
 		settingsPanel.setBorder(null);
 		settingsPanel.setLayout(null);
 		
-		JLabel usernameLabel = new JLabel();
-		usernameLabel.setText("Username: " + StartProgram.username);
-		JButton settingsButton = new JButton();
-		JButton logOutButton = new JButton();
-		settingsButton.setText("Settings");
-		logOutButton.setText("Log Out");
+		JLabel usernameLabel = new JLabel("<html>Username:<br><b>" + StartProgram.username + "</b></html>");
+		usernameLabel.setFont(textFont);
 		settingsPanel.add(usernameLabel);
+		usernameLabel.setBounds(10, 5, 390, 40);
+
+		JButton settingsButton = new JButton("Settings");
+		settingsButton.setFont(Courier12);
 		settingsPanel.add(settingsButton);
+		settingsButton.setBounds(8, 60, 90, 20);
+		
+		JButton logOutButton = new JButton("Log Out");
+		logOutButton.setFont(Courier12);
 		settingsPanel.add(logOutButton);
-		usernameLabel.setBounds(0,0,400,20);
-		settingsButton.setBounds(0,20,90,20);
-		logOutButton.setBounds(100,20,90,20);
+		logOutButton.setBounds(103, 60, 90, 20);
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -57,7 +59,7 @@ public class MainWindow implements Runnable {
 		
 		panel.add(settingsPanel);
 		settingsPanel.setBounds(0, 0, 200, 100);
-		settingsPanel.setBorder(new LineBorder(Color.GREEN));
+//		settingsPanel.setBorder(new LineBorder(Color.GREEN));
 		
 		
 		
@@ -90,13 +92,13 @@ public class MainWindow implements Runnable {
 		
 		panel.add(addGroupPanel);
 		addGroupPanel.setBounds(0, 80, 200, 120);
-		addGroupPanel.setBorder(new LineBorder(Color.YELLOW));
+//		addGroupPanel.setBorder(new LineBorder(Color.YELLOW));
 		
 		JPanel classesPanel = new ClassPanel();
 		
 		panel.add(classesPanel);
 		classesPanel.setBounds(0, 200, 200, 600);
-		classesPanel.setBorder(new LineBorder(Color.PINK));
+//		classesPanel.setBorder(new LineBorder(Color.PINK));
 		
 		frame.setLocation(dim.width/2 - w/2, dim.height/2 - h/2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -10,12 +10,6 @@ public class LoginWindow implements Runnable {
 
 	private static Font Courier16 = new Font("Courier", Font.PLAIN, 16);
 
-	private static ActionListener button = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			// do stuff
-		}
-	};
-
 	@Override
 	public void run() {
 		JFrame frame = new JFrame();
@@ -39,14 +33,14 @@ public class LoginWindow implements Runnable {
 
 		JButton loginButton = new JButton("Log in");
 		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {				
 				StartProgram.socket.sendMessage("LOGINCHECK " + userInput.getText() + " " + passInput.getText());
 				String res = StartProgram.socket.receiveMessage();
 				if (res.contentEquals("SUCCESS")) {
 					successLabel.setText("Login Successful");
 					StartProgram.username = userInput.getText();
 					frame.dispose();
-					SwingUtilities.invokeLater(new MainWindow());
+					SwingUtilities.invokeLater(new GroupSelectionWindow());
 				} else {
 					successLabel.setText("Wrong Credentials");
 				}

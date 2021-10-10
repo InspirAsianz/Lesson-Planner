@@ -24,4 +24,11 @@ public class StartProgram implements Runnable {
 			System.out.println("System exited successfully");
 		}
 	}
+	
+	public static class FatalError extends Thread {
+		public void run() {
+			JOptionPane.showMessageDialog(null, "A Fatal Error Occurred.");
+			System.exit(0);
+		}
+	}
 }
