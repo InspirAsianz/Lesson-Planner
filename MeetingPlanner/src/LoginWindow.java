@@ -33,6 +33,7 @@ public class LoginWindow implements Runnable {
 
 		JButton loginButton = new JButton("Log in");
 		loginButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {				
 				StartProgram.socket.sendMessage("LOGINCHECK " + userInput.getText() + " " + passInput.getText());
 				String res = StartProgram.socket.receiveMessage();
