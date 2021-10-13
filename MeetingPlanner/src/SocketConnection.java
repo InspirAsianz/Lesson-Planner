@@ -5,11 +5,13 @@ import java.nio.charset.Charset;
 
 public class SocketConnection {
 	
-	private static final String HOST = "localhost";// "45.79.81.143";
+	private static final String HOST = "45.79.81.143";
 	private static final int PORT = 23512;
 	
 	private static final Charset UTF8 = Charset.forName("UTF-8");
 	private static final int HEADER_LENGTH = 8;
+	
+	private static final boolean printing = true;
 	
     private Socket clientSocket;
     private PrintWriter out;
@@ -25,15 +27,16 @@ public class SocketConnection {
 	        clientSocket.setSoTimeout(5000);
 	        out = new PrintWriter(clientSocket.getOutputStream(), true);
 	        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-	        System.out.println("[CLIENT] Connected to server");
+	        if (printing) System.out.println("[CLIENT] Connected to server");
     	} catch (IOException e) {
     		// e.printStackTrace();
-    		System.out.println("[CLIENT] Unable to connect to server");
+    		if (printing) System.out.println("[CLIENT] Unable to connect to server");
+    		new StartProgram.InternetError().start();
     	}
     }
 
     public void sendMessage(String msg) {
-    	System.out.println("[CLIENT] Sending Message: " + msg);
+    	if (printing) System.out.println("[CLIENT] Sending Message: " + msg);
     	int length = msg.getBytes(UTF8).length;
     	String header = Integer.toString(length);
     	for (int i = 0; i < HEADER_LENGTH - Integer.toString(length).length(); i++) {
@@ -55,11 +58,11 @@ public class SocketConnection {
 			data = new StringBuilder(charsIn);
 			data.append(buffer, 0, charsIn);
 			
-			System.out.println("[CLIENT] Received Message: " + data.toString());
+			if (printing) System.out.println("[CLIENT] Received Message: " + data.toString());
 			return data.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			new StartProgram.FatalError().start();
+			if (printing) e.printStackTrace();
+			new StartProgram.InternetError().start();
 		}
         return "";
     }

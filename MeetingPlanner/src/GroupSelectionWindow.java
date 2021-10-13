@@ -5,7 +5,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -44,6 +43,7 @@ public class GroupSelectionWindow implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String selection = (String) groupSelectionBox.getSelectedItem();
+				if (!selection.contains("(")) return;
 				StartProgram.groupcode = selection.split("\\(")[1].split("\\)")[0];
 				String usertype = selection.split(" - ")[1];
 				StartProgram.usertype = usertype;

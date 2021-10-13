@@ -31,4 +31,11 @@ public class StartProgram implements Runnable {
 			System.exit(0);
 		}
 	}
+	
+	public static class InternetError extends Thread {
+		public void run() {
+			JOptionPane.showMessageDialog(null, "A Network Error Occurred.");
+			System.exit(0);
+		}
+	}
 }
