@@ -11,6 +11,23 @@ public class AdminWindow implements Runnable {
 	
 	private static Font Courier16 = new Font("Courier", Font.PLAIN, 16);
 	
+	private static String helpMessage = "GET [username] - Get the information for user\n"
+			+ "REMOVE [username] FROM [class] - Remove user from class\n"
+			+ "ADD [username] TO [class] - Add user to class\n"
+			+ "LIST - List all users\n"
+			+ "LIST FROM [class] - List all users in certain class\n"
+			+ "LIST CLASSES - List all classes\n"
+			+ "ADDCLASS [classname] - Add a new class\n"
+			+ "REMOVECLASS [classname] - Remove a class\n"
+			+ "CODE - Get the group code\n"
+			+ "ASSIGN [username] TEACHER/STUDENT/ADMIN - Set a user to a different role\n"
+			+ "SCHEDULE - Get the class times with default parameters\n"
+			+ "SCHEDULE [class length] [min teachers] [min students] [max teacher classes]\n"
+			+ "  -  class length - the length of a class in minutes\n"
+			+ "  -  min teachers - the minimum number of teachers per class\n"
+			+ "  -  min students - the minimum number of students per class\n"
+			+ "  -  max teacher classes - the maximum number a classes a teacher will teach";
+	
 	private int prevMax = 0;
 
 	@Override
@@ -99,6 +116,12 @@ public class AdminWindow implements Runnable {
 		gbc.ipady = 50;
 		gbc.anchor = GridBagConstraints.SOUTHWEST;
 		gbc.fill = GridBagConstraints.BOTH;
+		help.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(frame, helpMessage);
+			}
+		});
 		panel.add(help, gbc);
 
 		frame.setLocation(dim.width/2 - w/2, dim.height/2 - h/2);
